@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="demo1" extends="struts-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="book.store.interceptor.LoginInterceptor"></interceptor>
+		</interceptors>
+	
+	
+		<action name="mainPage" class="mainPage">
+			<result name="mainPage">/jsps/main.jsp</result>
+		</action>
+
+
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="registerSuccess">/jsps/user/login.jsp</result>
+			<result name="registerFail">/jsps/user/register.jsp</result>
+			<result name="loginSuccess">/jsps/main.jsp</result>
+			<result name="loginFail">/jsps/user/login.jsp</result>
+			<result name="exit">/jsps/main.jsp</result>
+			<result name="editSuccess">/jsps/user/user.jsp</result>
+			<result name="activeSuccess">/jsps/user/active.jsp</result>
+
+			<result name="input">/jsps/error.jsp</result>
+		</action>
+		
+		<action name="category_*" class="categoryAction" method="{1}">
+			<result name="findAllSuccess">/jsps/left.jsp</result>
+		</action>
+		
+		<action name="book_*" class="bookAction" method="{1}">
+			<result name="findByCategorySuccess">/jsps/book/list.jsp</result>
+			<result name="findByBidSuccess">/jsps/book/desc.jsp</result>
+		</action>
+		
+		<action name="cart_*" class="cartAction" method="{1}">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="cartItem_list">/jsps/cart/list.jsp</result>
+			<result name="goto_login">/jsps/user/login.jsp</result>
+		</action>
+		
+		<action name="order_*" class="orderAction" method="{1}">
+			<result name="order_desc">/jsps/order/desc.jsp</result>
+			<result name="order_list">/jsps/order/list.jsp</result>
+			<result name="redirt_allOrders" type="redirectAction">order_findOrdersByUser</result>
+			<result name="pay_success">/jsps/order/payReturn.jsp</result>
+			<result name="pay_failed">/jsps/order/payNotity.jsp</result>
+		</action>
+		
+		<action name="adminCategory_*" class="adminCategoryAction" method="{1}">
+			<result name="findAllSuccess">/adminjsps/admin/category/list.jsp</result>
+			<result name="addCategorySuccess" type="redirectAction">adminCategory_findAll</result>
+			<result name="delCategorySuccess" type="redirectAction">adminCategory_findAll</result>
+			<result name="modCategoryAfter">/adminjsps/admin/category/mod.jsp</result>
+			<result name="modCategorySuccess" type="redirectAction">adminCategory_findAll</result>
+		</action>
+		
+		<action name="adminBook_*" class="adminBookAction" method="{1}">
+			<result name="findAllSuccess">/adminjsps/admin/book/list.jsp</result>
+			<result name="addBookAfter">/adminjsps/admin/book/add.jsp</result>
+			<result name="addBookSuccess">/adminjsps/admin/msg.jsp</result>
+			<result name="addBookFail" type="chain">adminBook_addBookAfter</result>
+			<result name="findByBidSuccess">/adminjsps/admin/book/desc.jsp</result>
+			<result name="deleteSuccess" type="chain">adminBook_findAll</result>
+			<result name="modifyBookSuccess" type="chain">adminBook_findByBid</result>
+			<result name="categoryFindFirst">/adminjsps/admin/book/category.jsp</result>
+			<result name="categoryFindSuccess">/adminjsps/admin/book/listCategory.jsp</result>
+		</action>
+		
+		<action name="adminOrder_*" class="adminOrderAction" method="{1}">
+			<result name="admin_order_list">/adminjsps/admin/order/list.jsp</result>
+			<result name="redirect_admin_order_list" type="redirectAction">adminOrder_findAllOrder</result>
+			<result name="order_detail">/adminjsps/admin/order/orderDetail.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

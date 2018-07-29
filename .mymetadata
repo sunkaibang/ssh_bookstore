@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ssh_bookstore"
+  id="myeclipse.1524384543891"
+  context-root="/ssh_bookstore"
+  j2ee-spec="5.0"
+  archive="ssh_bookstore.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

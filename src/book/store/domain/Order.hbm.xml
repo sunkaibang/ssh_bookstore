@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="book.store.domain.Order" table="bookstore_order">
+		<id name="oid" column="oid">
+			<generator class="native"></generator>
+		</id>
+		<property name="date" column="date"></property>
+		<property name="total" column="total"></property>
+		<property name="state" column="state"></property>
+		<property name="adress" column="adress"></property>
+		
+		
+		<set name="orderItems" cascade="save-update,delete"  inverse="true">
+			<key column="oid"></key>
+			<one-to-many class="book.store.domain.OrderItem"/>
+		</set>
+		
+		<many-to-one name="owner" class="book.store.domain.User" column="uid"></many-to-one>
+	</class>
+</hibernate-mapping>

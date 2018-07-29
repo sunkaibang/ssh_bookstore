@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="book.store.domain.OrderItem" table="bookstore_orderitem">
+		<id name="iid" column="iid">
+			<generator class="native"></generator>
+		</id>
+		<property name="count" column="count"></property>
+		<property name="total" column="total"></property>
+		
+		<many-to-one name="order" class="book.store.domain.Order" column="oid"></many-to-one>
+		<many-to-one name="book" class="book.store.domain.Book" column="bid"></many-to-one>
+	</class>
+</hibernate-mapping>

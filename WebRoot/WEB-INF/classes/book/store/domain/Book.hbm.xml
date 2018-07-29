@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="book.store.domain.Book" table="bookstore_book">
+		<id name="bid" column="bid">
+			<generator class="native"></generator>
+		</id>
+		<property name="bname" column="bname"></property>
+		<property name="bprice" column="bprice"></property>
+		<property name="bauther" column="bauther"></property>
+		<property name="bimage" column="bimage"></property>
+		
+		<many-to-one name="category" class="book.store.domain.Category" column="cid"></many-to-one>
+		
+		<set name="orderItems" cascade="save-update,delete" inverse="true">
+			<key column="bid"></key>
+			<one-to-many class="book.store.domain.OrderItem"/>
+		</set>		
+	</class>
+</hibernate-mapping>
